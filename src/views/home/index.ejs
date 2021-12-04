@@ -1,0 +1,133 @@
+<div class="row">
+    <div class="col-12 text-center mb-3">
+        <h2>Proje Hakkında</h2>
+    </div>
+    <div class="col-12 text-start mb-3">
+        <h3>Proje Önyüzü</h3>
+        <ul class="list-group">
+            <li class="list-group-item">
+                Önyüz EJS kullanılarak yazılmıştır
+            </li>
+            <li class="list-group-item">
+                Öncelikle register kısmından kayıt olunmalıdır
+            </li>
+            <li class="list-group-item">
+                Sonrasında login üzerinden giriş yapılmalıdır
+            </li>
+            <li class="list-group-item">
+                Categories ve Posts sekmelerinden işlemleri gerçekleştirebilirsiniz
+            </li>
+        </ul>
+    </div>
+    <div class="col-12 text-start mb-3">
+        <h3>Proje Servisleri</h3>
+        <ul class="list-group">
+            <li class="list-group-item">
+                Önyüz tarafında gerçekleştirilebilen tüm işlemler servisler vasıtası ile de gerçekleştirebilmektedir
+            </li>
+            <li class="list-group-item">
+                User servisi hariş diğer servislerin kullanımı için register ve login işlemleri yapılmalıdır
+            </li>
+            <li class="list-group-item">
+                Login işlemi ile elde edilen token header'a "Authorization" key'i ile eklenmelidir
+            </li>
+            <li class="list-group-item" style="background-color: rgb(233, 241, 153)">
+                <b>User Service</b>
+                <ul class="list-group p-2">
+                    <li class="list-group-item">
+                        <b>path:</b> http://localhost:3000/service/user/register <br><br>
+                        <b>method:</b> post <br><br>
+                        <b>sample data:</b>
+                        {
+                            "fullname": "ali kaya",
+                            "email": "ali@mail.com",
+                            "password": "1234"
+                        }
+                    </li>
+                    <li class="list-group-item">
+                        <b>path:</b> http://localhost:3000/service/user/login <br><br>
+                        <b>method:</b> post <br><br>
+                        <b>sample data:</b>
+                        {
+                            "email": "ali@mail.com",
+                            "password": "1234"
+                        } <br><br>
+                        <b>Not:</b> token'a ulasmak için "data.token", token categories ve posts servisleri icin zorunludur
+                    </li>
+                </ul>
+            </li>
+            <li class="list-group-item" style="background-color: rgb(153, 241, 153)">
+                <b>Category Service</b><br><small>(Tüm endpointler için header'a authorization key'i ile token eklenmeli)</small>
+                <ul class="list-group p-2">
+                    <li class="list-group-item">
+                        <b>path:</b> http://localhost:3000/service/categories <br><br>
+                        <b>method:</b> get
+                    </li>
+                    <li class="list-group-item">
+                        <b>path:</b> http://localhost:3000/service/categories/insert <br><br>
+                        <b>method:</b> post <br><br>
+                        <b>sample data:</b>
+                        {
+                            "name":"asd1076",
+                            "description":"asd"
+                        }
+                    </li>
+                    <li class="list-group-item">
+                        <b>path:</b> http://localhost:3000/service/categories/update <br><br>
+                        <b>method:</b> patch <br><br>
+                        <b>sample data:</b>
+                        {
+                            "_id":"61abe335df4efd8dbe4c7537",
+                            "name":"asd1076",
+                            "description":"asd"
+                        }
+                    </li>
+                    <li class="list-group-item">
+                        <b>path:</b> http://localhost:3000/service/categories/delete/61abae44ac9eba3efab3e020 <br><br>
+                        <b>method:</b> delete
+                    </li>
+                </ul>
+            </li>
+            <li class="list-group-item" style="background-color: rgb(153, 181, 241)">
+                <b>Post Service</b><br><small>(Tüm endpointler için header'a authorization key'i ile token eklenmeli)</small>
+                <ul class="list-group p-2">
+                    <li class="list-group-item">
+                        <b>path:</b> http://localhost:3000/service/posts <br><br>
+                        <b>method:</b> get
+                    </li>
+                    <li class="list-group-item">
+                        <b>path:</b> http://localhost:3000/service/posts/61abae44ac9eba3efab3e020 <br><br>
+                        <b>method:</b> get
+                    </li>
+                    <li class="list-group-item">
+                        <b>path:</b> http://localhost:3000/service/posts/insert <br><br>
+                        <b>method:</b> post <br><br>
+                        <b>sample data:</b>
+                        {
+                            "title":"test1 title",
+                            "caption":"test1 caption",
+                            "content":"test1 content",
+                            "categories":"test1 category"
+                        }
+                    </li>
+                    <li class="list-group-item">
+                        <b>path:</b> http://localhost:3000/service/posts/update <br><br>
+                        <b>method:</b> patch <br><br>
+                        <b>sample data:</b>
+                        {
+                            "_id":"61abe581671d8c6236d4d7cd",
+                            "title":"test1 title",
+                            "caption":"test1 caption",
+                            "content":"test1 content",
+                            "categories":"test1 category"
+                        }
+                    </li>
+                    <li class="list-group-item">
+                        <b>path:</b> http://localhost:3000/service/posts/delete/61abae44ac9eba3efab3e020 <br><br>
+                        <b>method:</b> delete
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>

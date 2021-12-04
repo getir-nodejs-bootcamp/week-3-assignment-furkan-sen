@@ -1,0 +1,149 @@
+<div>
+    <div class="row">
+  
+      <div class="col-12">
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-outline-success w-100" data-bs-toggle="modal" data-bs-target="#insertModal">
+          Add new
+        </button>
+      </div>
+  
+      <div class="col-12">
+        <div class="row">
+          <% posts.forEach(post => { %>
+            <div class="col-md-6 col-12 p-2">
+              <div class="card">
+                <div class="card-header">
+                  <b>Post Title:</b> <%= post.title  %> 
+                </div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">
+                    <b>Post Caption:</b> <%= post.caption  %> 
+                  </li>
+                  <li class="list-group-item">
+                      <div class="d-flex flex-row justify-content-end">
+                        <div class="px-2">
+                          <a href="/posts/<%= post._id %>/<%= post.title %>" class="btn btn-sm btn-primary">
+                              Read
+                          </a>
+                      </div>
+                        <div class="px-2">
+                            <button onclick="arrangeUpdateModal('<%= JSON.stringify(post) %>')" type="button" class="btn btn-sm btn-warning text-light" 
+                              data-bs-toggle="modal" data-bs-target="#updateModal">
+                                Update
+                            </button>
+                        </div>
+                        <div class="px-2">
+                            <a href="/posts/delete/<%= post._id %>" class="btn btn-sm btn-danger">
+                                Delete
+                            </a>
+                        </div>
+                      </div>
+                  </li>
+                </ul>
+              </div>
+            </div> 
+          <% }) %>
+        </div> 
+      </div> 
+      
+      <!-- Insert Modal -->
+      <div class="modal fade" id="insertModal" tabindex="-1" aria-labelledby="insertModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="insertModalLabel">Add New Post</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form action="/posts/insert" method="post">
+                <div class="mb-3">
+                    <label>Post Title</label>
+                    <input class="form-control" name="title">
+                </div>
+                <div class="mb-3">
+                    <label>Post Caption</label>
+                    <input class="form-control" name="caption">
+                </div>
+                <div class="mb-3">
+                    <label>Post Content</label>
+                    <textarea class="form-control" name="content" rows="8"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label>Post Category</label>
+                    <select class="form-control" name="categories">
+                        <% categories.forEach(category => { %>
+                            <option value="<%= category.name %>"><%= category.name %></option>
+                        <% }) %>
+                    </select>
+                </div>
+                <div class="mb-3">
+                  <button class="btn btn-sm btn-outline-success" type="submit">
+                    Submit
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+       <!-- Update Modal -->
+       <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="updateModalLabel">Update Post</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form action="/posts/update" method="post">
+                <div class="mb-3">
+                  <label>Post Id</label>
+                  <input id="update_id" class="form-control" name="_id" readonly>
+              </div>
+                <div class="mb-3">
+                    <label>Post Title</label>
+                    <input id="update_title" class="form-control" name="title">
+                </div>
+                <div class="mb-3">
+                    <label>Post Caption</label>
+                    <input id="update_caption" class="form-control" name="caption">
+                </div>
+                <div class="mb-3">
+                    <label>Post Content</label>
+                    <textarea id="update_content" class="form-control" name="content" rows="8"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label>Post Category</label>
+                    <select id="update_categories" class="form-control" name="categories">
+                        <% categories.forEach(category => { %>
+                            <option value="<%= category.name %>"><%= category.name %></option>
+                        <% }) %>
+                    </select>
+                </div>
+                <div class="mb-3">
+                  <button class="btn btn-sm btn-outline-success" type="submit">
+                    Submit
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+    </div>
+  </div>
+  
+  <script>
+    function arrangeUpdateModal(post) {
+      const obj = JSON.parse(post)
+      console.log(obj)
+      document.querySelector('#update_id').value = obj._id
+      document.querySelector('#update_title').value = obj.title
+      document.querySelector('#update_caption').value = obj.caption
+      document.querySelector('#update_content').value = obj.content
+      document.querySelector('#update_categories').value = obj.categories
+    }
+  </script>

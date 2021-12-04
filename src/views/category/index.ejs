@@ -1,0 +1,117 @@
+<div>
+  <div class="row">
+
+    <div class="col-12">
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-outline-success w-100" data-bs-toggle="modal" data-bs-target="#insertModal">
+        Add new
+      </button>
+    </div>
+
+    <div class="col-12">
+      <div class="row">
+        <% categories.forEach(category => { %>
+          <div class="col-md-6 col-12 p-2">
+            <div class="card">
+              <div class="card-header">
+                <b>Catgory Name:</b> <%= category.name  %> 
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                  <b>Category Description:</b> <%= category.description  %> 
+                </li>
+                <li class="list-group-item">
+                    <div class="d-flex flex-row justify-content-end">
+                      <div class="px-2">
+                          <button onclick="arrangeUpdateModal('<%= JSON.stringify(category) %>')" type="button" class="btn btn-sm btn-warning text-light" 
+                            data-bs-toggle="modal" data-bs-target="#updateModal">
+                              Update
+                          </button>
+                      </div>
+                      <div class="px-2">
+                          <a href="/categories/delete/<%= category._id %>" class="btn btn-sm btn-danger">
+                              Delete
+                          </a>
+                      </div>
+                    </div>
+                </li>
+              </ul>
+            </div>
+          </div> 
+        <% }) %>
+      </div> 
+    </div> 
+    
+    <!-- Insert Modal -->
+    <div class="modal fade" id="insertModal" tabindex="-1" aria-labelledby="insertModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="insertModalLabel">Add New Category</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form action="/categories/insert" method="post">
+              <div class="mb-3">
+                <label>Category Name</label>
+                <input class="form-control" name="name">
+              </div>
+              <div class="mb-3">
+                <label>Category Description</label>
+                <input class="form-control" name="description">
+              </div>
+              <div class="mb-3">
+                <button class="btn btn-sm btn-outline-success" type="submit">
+                  Submit
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+     <!-- Update Modal -->
+     <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="updateModalLabel">Update Category</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form action="/categories/update" method="post">
+              <div class="mb-3">
+                <label>Category Id</label>
+                <input id="update_id" class="form-control" name="_id" readonly>
+              </div>
+              <div class="mb-3">
+                <label>Category Name</label>
+                <input id="update_name" class="form-control" name="name">
+              </div>
+              <div class="mb-3">
+                <label>Category Description</label>
+                <input id="update_description" class="form-control" name="description">
+              </div>
+              <div class="mb-3">
+                <button class="btn btn-sm btn-outline-success" type="submit">
+                  Submit
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  function arrangeUpdateModal(category) {
+    const obj = JSON.parse(category)
+    document.querySelector('#update_id').value = obj._id
+    document.querySelector('#update_name').value = obj.name
+    document.querySelector('#update_description').value = obj.description
+  }
+</script>
