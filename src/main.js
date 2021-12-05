@@ -19,13 +19,19 @@ const homeLogin = require('./middlewares/home-login')
 const auth = require('./middlewares/auth')
 const tokenCheck = require('./middlewares/token-check')
 
+// ejs konfigurasyonu
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'))
 
+// express middlewares
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 app.use(express.static('public'))
+
+// ejs middleware - layout kullanımı
 app.use(layouts)
+
+// session konfigurasyonu
 app.use(session({
     secret: process.env.SECRET_KEY,
     resave: false,
@@ -35,6 +41,8 @@ app.use(session({
     }
   }
 ))
+
+// connect-flash konfigurasyonu 
 app.use(flash())
 app.use((req,resp,next) => {
   resp.locals.crudErrors = req.flash('crudErrors')
@@ -44,14 +52,14 @@ app.use((req,resp,next) => {
   next()
 })
 
-// mvc
+// mvc routes
 app.use('/', homeLogin, homeRouter)
 app.use('/user', userRouter)
 app.use('/categories', auth, categoryRouter)
 app.use('/posts', auth, postRouter)
 app.use('/comments', auth, commentRouter)
 
-// api
+// api routes
 app.use('/service/user', userApiRouter)
 app.use('/service/categories', tokenCheck, categoryApiRouter)
 app.use('/service/posts', tokenCheck, postApiRouter)

@@ -1,3 +1,5 @@
+// express-validator ile validasyon
+
 const { body } = require('express-validator')
 
 const categoryValidator = () => {

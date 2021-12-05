@@ -1,3 +1,5 @@
+// "/" route yonlendirmesinde session cookie de token var ise otomatik login olma
+
 const { tokenVerify } = require('../helper/jwt-helper')
 
 module.exports = (req,resp,next) => {

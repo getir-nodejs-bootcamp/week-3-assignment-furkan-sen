@@ -1,3 +1,5 @@
+// api routelari icin token kontrolu
+
 const { tokenVerify } = require('../helper/jwt-helper')
 
 module.exports = (req,resp,next) => {

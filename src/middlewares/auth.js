@@ -1,3 +1,5 @@
+// mvc routes yapilari icin session cookie bakılarak toke uzerinden yetki kontrolu
+
 const { tokenVerify } = require('../helper/jwt-helper')
 
 module.exports = (req,resp,next) => {

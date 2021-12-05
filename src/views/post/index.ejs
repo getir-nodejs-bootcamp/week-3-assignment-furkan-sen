@@ -34,7 +34,7 @@
                             </button>
                         </div>
                         <div class="px-2">
-                            <a href="/posts/delete/<%= post._id %>" class="btn btn-sm btn-danger">
+                            <a href="/posts/delete/r/<%= post._id %>" class="btn btn-sm btn-danger">
                                 Delete
                             </a>
                         </div>
@@ -139,7 +139,6 @@
   <script>
     function arrangeUpdateModal(post) {
       const obj = JSON.parse(post)
-      console.log(obj)
       document.querySelector('#update_id').value = obj._id
       document.querySelector('#update_title').value = obj.title
       document.querySelector('#update_caption').value = obj.caption
