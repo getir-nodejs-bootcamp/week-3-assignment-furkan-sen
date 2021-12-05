@@ -28,7 +28,7 @@
                           </a>
                       </div>
                         <div class="px-2">
-                            <button onclick="arrangeUpdateModal('<%= JSON.stringify(post) %>')" type="button" class="btn btn-sm btn-warning text-light" 
+                            <button onclick="arrangeUpdateModal('<%= post._id %>')" type="button" class="btn btn-sm btn-warning text-light" 
                               data-bs-toggle="modal" data-bs-target="#updateModal">
                                 Update
                             </button>
@@ -137,12 +137,31 @@
   </div>
   
   <script>
-    function arrangeUpdateModal(post) {
-      const obj = JSON.parse(post)
-      document.querySelector('#update_id').value = obj._id
-      document.querySelector('#update_title').value = obj.title
-      document.querySelector('#update_caption').value = obj.caption
-      document.querySelector('#update_content').value = obj.content
-      document.querySelector('#update_categories').value = obj.categories
+    function arrangeUpdateModal(id) {
+      const token = getCookie('authToken')
+      console.log(token)
+      axios.get(`/service/posts/${id}`, { 
+        headers: {
+          "Authorization": token
+          }
+        })
+        .then(resp=> {
+          if(resp.data.success) {
+            let obj = resp.data.data
+            document.querySelector('#update_id').value = obj._id
+            document.querySelector('#update_title').value = obj.title
+            document.querySelector('#update_caption').value = obj.caption
+            document.querySelector('#update_content').value = obj.content
+            document.querySelector('#update_categories').value = obj.categories
+          } else {
+            alert('An unexpected error has been occured')
+          }
+        })
+    }
+
+    function getCookie(name) {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop().split(';').shift();
     }
   </script>
